@@ -17,3 +17,5 @@
 const Route = use('Route')
 
 Route.resource('unidades', 'UnidadeController')
+Route.get('files/:id', 'FileController.show')
+Route.post('files', 'FileController.store')

@@ -3,9 +3,9 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class PolicialSchema extends Schema {
+class SubscriptionSchema extends Schema {
   up () {
-    this.create('policiais', table => {
+    this.create('subscriptions', table => {
       table.increments()
       table
         .integer('user_id')
@@ -13,22 +13,19 @@ class PolicialSchema extends Schema {
         .references('id')
         .inTable('users')
       table
-        .string('matricula')
-        .notNullable()
-        .unique()
-      table.string('nome').notNullable()
-      table
-        .integer('unidade_id')
+        .integer('meetup_id')
         .unsigned()
         .references('id')
-        .inTable('unidades')
+        .inTable('meetups')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
       table.timestamps()
     })
   }
 
   down () {
-    this.drop('policiais')
+    this.drop('subscriptions')
   }
 }
 
-module.exports = PolicialSchema
+module.exports = SubscriptionSchema
