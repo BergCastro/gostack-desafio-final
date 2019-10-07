@@ -1,4 +1,6 @@
 'use strict'
+const { isBefore, startOfDay, endOfDay, parseISO } = require('date-fns')
+const Meetup = use('App/Models/Meetup')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -17,7 +19,13 @@ class MeetupController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index ({ request, response }) {
+    const { page } = request.get()
+    const meetup = Meetup.query()
+      .with('user')
+      .paginate(page)
+
+    return meetup
   }
 
   /**
@@ -29,8 +37,7 @@ class MeetupController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
-  }
+  async create ({ request, response, view }) {}
 
   /**
    * Create/save a new meetup.
@@ -40,7 +47,20 @@ class MeetupController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request, response, auth }) {
+    const data = request.only([
+      'title',
+      'file_id',
+      'description',
+      'location',
+      'date'
+    ])
+    if (isBefore(parseISO(request.body.date), new Date())) {
+      return response.status(400).json({ error: 'Meetup date invalid' })
+    }
+    const meetup = await Meetup.create({ user_id: auth.user.id, ...data })
+
+    return meetup
   }
 
   /**
@@ -52,30 +72,38 @@ class MeetupController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show ({ params }) {
+    const meetup = await Meetup.query()
+      .where('id', params.id)
+      .first()
+
+    return meetup
   }
 
-  /**
-   * Render a form to update an existing meetup.
-   * GET meetups/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
-  }
+  async update ({ params, request, response, auth }) {
+    const userId = auth.user.id
+    const data = request.all()
+    const meetup = await Meetup.query()
+      .where('id', params.id)
+      .first()
 
-  /**
-   * Update meetup details.
-   * PUT or PATCH meetups/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async update ({ params, request, response }) {
+    if (meetup.user_id !== userId) {
+      return response.status(401).json({ error: 'Not authorized.' })
+    }
+
+    if (isBefore(parseISO(request.body.date), new Date())) {
+      return response.status(400).json({ error: 'Meetup date invalid' })
+    }
+
+    if (meetup.past) {
+      return response.status(400).json({ error: "Can't update past meetups." })
+    }
+
+    meetup.merge(data)
+
+    await meetup.save()
+
+    return meetup
   }
 
   /**
@@ -86,7 +114,21 @@ class MeetupController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, response, auth }) {
+    const userId = auth.user.id
+    const meetup = await Meetup.query()
+      .where('id', params.id)
+      .first()
+
+    if (meetup.user_id !== userId) {
+      return response.status(401).json({ error: 'Not authorized.' })
+    }
+
+    if (meetup.past) {
+      return response.status(400).json({ error: "Can't delete past meetups." })
+    }
+
+    await meetup.delete()
   }
 }
 

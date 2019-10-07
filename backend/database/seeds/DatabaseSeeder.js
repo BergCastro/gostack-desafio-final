@@ -1,9 +1,13 @@
 'use strict'
-const unidades = require('./Colections').unidades
-const Unidade = use('App/Models/Unidade')
+
+const User = use('App/Models/User')
 class DatabaseSeeder {
   async run () {
-    await Unidade.createMany(unidades)
+    await User.create({
+      name: 'Lindemberg Nunes de Castro',
+      email: 'fireberg2500@hotmail.com',
+      password: '123456'
+    })
   }
 }
 

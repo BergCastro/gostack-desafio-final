@@ -5,7 +5,11 @@ const { isBefore } = require('date-fns')
 const Model = use('Model')
 
 class Meetup extends Model {
-  past () {
+  static get computed () {
+    return ['past']
+  }
+
+  getPast () {
     return isBefore(this.date, new Date())
   }
 
