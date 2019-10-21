@@ -1,5 +1,5 @@
 'use strict'
-const { isBefore, startOfDay, endOfDay, parseISO } = require('date-fns')
+const { isBefore, parseISO } = require('date-fns')
 const Meetup = use('App/Models/Meetup')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */

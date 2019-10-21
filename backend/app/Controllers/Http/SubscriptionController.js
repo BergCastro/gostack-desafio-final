@@ -1,6 +1,5 @@
 'use strict'
-import { utcToZonedTime } from 'date-fns-tz'
-import pt from 'date-fns/locale/pt'
+
 const Subscription = use('App/Models/Subscription')
 const Meetup = use('App/Models/Meetup')
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
