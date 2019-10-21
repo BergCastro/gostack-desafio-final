@@ -4,6 +4,12 @@
 const Model = use('Model')
 
 class Subscription extends Model {
+  static boot () {
+    super.boot()
+
+    this.addHook('afterCreate', 'SubscriptionHook.sendEmail')
+  }
+
   meetup () {
     return this.belongsTo('App/Models/Meetup')
   }

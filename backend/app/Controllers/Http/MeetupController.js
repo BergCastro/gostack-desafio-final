@@ -20,10 +20,20 @@ class MeetupController {
    * @param {View} ctx.view
    */
   async index ({ request, response }) {
-    const { page } = request.get()
-    const meetup = Meetup.query()
-      .with('user')
-      .paginate(page)
+    const { page, date } = request.get()
+    let meetup
+    if (date) {
+      meetup = Meetup.query()
+        .where('date', date || null)
+        .with('user')
+        .with('file')
+        .paginate(page, 10)
+    } else {
+      meetup = Meetup.query()
+        .with('user')
+        .with('file')
+        .paginate(page, 10)
+    }
 
     return meetup
   }
@@ -55,8 +65,19 @@ class MeetupController {
       'location',
       'date'
     ])
+    const hasMeetupSameDate = await Meetup.query()
+      .where({
+        user_id: auth.user.id,
+        date: data.date
+      })
+      .first()
+    if (hasMeetupSameDate) {
+      return response.status(400).json({
+        error: 'Você já possui um meetup criado com essa data e hora!'
+      })
+    }
     if (isBefore(parseISO(request.body.date), new Date())) {
-      return response.status(400).json({ error: 'Meetup date invalid' })
+      return response.status(400).json({ error: 'Data inválida para o meetup' })
     }
     const meetup = await Meetup.create({ user_id: auth.user.id, ...data })
 
@@ -88,15 +109,17 @@ class MeetupController {
       .first()
 
     if (meetup.user_id !== userId) {
-      return response.status(401).json({ error: 'Not authorized.' })
+      return response.status(401).json({ error: 'Não autorizado.' })
     }
 
     if (isBefore(parseISO(request.body.date), new Date())) {
-      return response.status(400).json({ error: 'Meetup date invalid' })
+      return response.status(400).json({ error: 'Data inválida para o meetup' })
     }
 
     if (meetup.past) {
-      return response.status(400).json({ error: "Can't update past meetups." })
+      return response
+        .status(400)
+        .json({ error: 'Não pode atualizar meetups passados.' })
     }
 
     meetup.merge(data)
@@ -121,11 +144,13 @@ class MeetupController {
       .first()
 
     if (meetup.user_id !== userId) {
-      return response.status(401).json({ error: 'Not authorized.' })
+      return response.status(401).json({ error: 'Não autorizado.' })
     }
 
     if (meetup.past) {
-      return response.status(400).json({ error: "Can't delete past meetups." })
+      return response
+        .status(400)
+        .json({ error: 'Não pode deletar meetups passados.' })
     }
 
     await meetup.delete()

@@ -20,7 +20,7 @@ class MeetupSchema extends Schema {
       table.string('title').notNullable()
       table.string('description').notNullable()
       table.string('location').notNullable()
-      table.date('date').notNullable()
+      table.datetime('date').notNullable()
       table.timestamps()
     })
   }
