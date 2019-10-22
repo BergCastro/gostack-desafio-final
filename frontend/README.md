@@ -2,24 +2,24 @@
 <a href="https://rocketseat.com.br/bootcamp" alt="Bootcamp Rocketseat">
   <img src="https://skylab.rocketseat.com.br/api/files/1560759053914.svg" height="120px"></a></p>
 
-# Rocketseat GoStack - Frontend GoBarber
+# Rocketseat GoStack - Frontend MeetApp
 
 https://rocketseat.com.br/bootcamp
 
 ## Description
 
-React App Frontend GoBarber - Bootcamp GoStack.
+React App Frontend MeetApp - Bootcamp GoStack.
 
 ## Installing
 
 ```
-cd gostack-frontend-gobarber
+cd frontend
 yarn
 ```
 
 ## Running
 
-`yarn dev`
+`yarn start`
 
 ## Author
 

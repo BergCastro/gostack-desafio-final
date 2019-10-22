@@ -1,28 +1,60 @@
-# Adonis API application
+<p align="center">
+<a href="https://rocketseat.com.br/bootcamp" alt="Bootcamp Rocketseat">
+  <img src="https://skylab.rocketseat.com.br/api/files/1560759053914.svg" height="120px"></a></p>
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+# Rocketseat GoStack - Backend MeetApp
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+https://rocketseat.com.br/bootcamp
 
-## Setup
+## Description
 
-Use the adonis command to install the blueprint
+Adonis API aplication for the Rocketseat Bootcamp GoStack MeetApp application.
 
-```bash
-adonis new yardstick --api-only
+## Features
+
+- JWT Authentication
+- Pagination
+- Database Postgres
+- Queue with Redis for sendind emails.
+
+## Installing
+
+### Create docker container Postgres
+
+`docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres`
+
+### Create docker container Redis
+
+`docker run --name redis -p 6379:6379 -d -t redis:alpine`
+
+### Installing dependencies
+
+```
+cd backend
+npm i
 ```
 
-or manually clone the repo and then run `npm install`.
+### Running migrations Database
 
+`adonis migration:run`
 
-### Migrations
+### Running Seed
 
-Run the following command to run startup migrations.
+`adonis seed`
 
-```js
-adonis migration:run
-```
+### Setup .env file
+
+Rename the file `.env.example` to `.env` !
+Edit the file with your informations!
+
+## Running
+
+`adonis serve --dev`
+
+## Author
+
+- Lindemberg Nunes de Castro
+
+## License
+
+MIT
