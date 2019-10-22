@@ -34,6 +34,10 @@ cd backend
 npm i
 ```
 
+### Creating Database
+
+Create Database "meetapp"
+
 ### Running migrations Database
 
 `adonis migration:run`
