@@ -16,6 +16,11 @@ export const Content = styled.div`
   nav {
     display: flex;
     align-items: center;
+
+    img {
+      width: 31px;
+      height: 32px;
+    }
   }
 
   aside {

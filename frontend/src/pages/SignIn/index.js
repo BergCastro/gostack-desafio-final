@@ -25,7 +25,7 @@ export default function SignIn() {
 
   return (
     <>
-      <img src={logo} alt="MeetApp" />
+      <img src={logo} style={{ width: '41px', height: '42px' }} alt="MeetApp" />
 
       <Form schema={schema} onSubmit={handleSubmit}>
         <Input name="email" type="email" placeholder="Seu e-mail" />

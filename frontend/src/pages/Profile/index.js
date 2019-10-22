@@ -37,7 +37,7 @@ export default function Profile() {
         <Input
           type="text"
           className="password"
-          name="confirmPassword"
+          name="password_confirmation"
           placeholder="Confirmação de senha"
         />
 

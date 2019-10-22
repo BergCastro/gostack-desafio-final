@@ -28,6 +28,7 @@ export default function Dashboard() {
     [date]
   );
 
+  /*
   useEffect(() => {
     async function loadSchedule() {
       const response = await api.get('schedule', {
@@ -54,6 +55,7 @@ export default function Dashboard() {
 
     loadSchedule();
   }, [date]);
+  */
 
   function handlePrevDay() {
     setDate(subDays(date, 1));
