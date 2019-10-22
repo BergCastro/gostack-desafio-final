@@ -2,18 +2,18 @@
 <a href="https://rocketseat.com.br/bootcamp" alt="Bootcamp Rocketseat">
   <img src="https://skylab.rocketseat.com.br/api/files/1560759053914.svg" height="120px"></a></p>
 
-# Rocketseat GoStack - Gobarber Mobile
+# Rocketseat GoStack - MeetApp Mobile
 
 https://rocketseat.com.br/bootcamp
 
 ## Description
 
-Aplicação em Raect Native GoBarber.
+Aplicação em Raect Native MeetApp.
 
 ## Installing
 
 ```
-cd gostack-mobile-gobarber
+cd mobile
 yarn
 ```
 
