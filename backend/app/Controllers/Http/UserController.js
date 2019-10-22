@@ -13,23 +13,13 @@ class UserController {
   async update ({ request, auth }) {
     const data = request.all()
     const user = await User.find(auth.user.id)
-    console.log(auth.token)
     if (data.oldPassword) {
-      let decoded
-      try {
-        decoded = jwt.verify(auth.user.token, data.oldPassword)
-      } catch (error) {
 
-      }
-      if (decoded) {
-        console.log('verificou')
-      }
       delete data.oldPassword
-      delete data.confirmPassword
+      delete data.password_confirmation
     }
-   // console.log('data: ', data)
+
     user.merge(data)
-    //console.log('user: ', user)
 
     user.save()
 
