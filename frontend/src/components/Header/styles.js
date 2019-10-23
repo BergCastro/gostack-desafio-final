@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
   background: #000;
@@ -7,7 +8,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   height: 92px;
-  max-width: 900px;
+  max-width: 940px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -57,5 +58,10 @@ export const Profile = styled.div`
     border: 0;
     color: #fff;
     font-size: 16px;
+    font-weight: bold;
+
+    &:hover {
+      background: ${darken(0.08, '#d44059')};
+    }
   }
 `;

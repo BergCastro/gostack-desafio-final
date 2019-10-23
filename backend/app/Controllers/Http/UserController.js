@@ -14,7 +14,6 @@ class UserController {
     const data = request.all()
     const user = await User.find(auth.user.id)
     if (data.oldPassword) {
-
       delete data.oldPassword
       delete data.password_confirmation
     }

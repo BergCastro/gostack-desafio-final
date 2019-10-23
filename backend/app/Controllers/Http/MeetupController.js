@@ -96,6 +96,7 @@ class MeetupController {
   async show ({ params }) {
     const meetup = await Meetup.query()
       .where('id', params.id)
+      .with('file')
       .first()
 
     return meetup
