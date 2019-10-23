@@ -6,12 +6,15 @@ import { Form, Input, FileInput } from '@rocketseat/unform';
 import { Link, useHistory } from 'react-router-dom';
 import { MdCreate, MdDeleteForever, MdEvent, MdRoom } from 'react-icons/md';
 import api from '~/services/api';
-
+import BannerInput from './BannerInput';
 import { Container, Meetup } from './styles';
+import { updateMeetupRequest } from '~/store/modules/meetup/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function NovoEditar({ match }) {
   const [meetup, setMeetup] = useState({});
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function loadMeetup() {
@@ -20,7 +23,7 @@ export default function NovoEditar({ match }) {
     }
 
     loadMeetup();
-  }, [match.params.id]);
+  }, [match.params.id, meetup]);
 
   function handleNovoMeetup() {
     // setDate(addDays(date, 1));
@@ -28,15 +31,15 @@ export default function NovoEditar({ match }) {
   function handleCancelar() {
     history.push('/dashboard');
   }
-  function handleSubmit({ name, email, password }) {
-    // dispatch(signUpRequest(name, email, password));
+  function handleSubmit(meetup) {
+    dispatch(updateMeetupRequest(meetup));
   }
 
   function handleProgress(progress, event) {}
   return (
     <Container>
       <Form initialData={meetup} onSubmit={handleSubmit}>
-        <FileInput name="attach" onStartProgress={handleProgress} />
+        <BannerInput name="file_id" />
 
         <Input name="title" placeholder="Título do Meetup" />
         <Input multiline name="description" placeholder="Descricao completa" />

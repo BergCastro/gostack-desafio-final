@@ -18,7 +18,7 @@ class MeetupSchema extends Schema {
         .references('id')
         .inTable('files')
       table.string('title').notNullable()
-      table.string('description').notNullable()
+      table.text('description').notNullable()
       table.string('location').notNullable()
       table.datetime('date').notNullable()
       table.timestamps()
