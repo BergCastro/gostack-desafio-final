@@ -7,11 +7,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { MdCreate, MdDeleteForever, MdEvent, MdRoom } from 'react-icons/md';
 import api from '~/services/api';
 import BannerInput from './BannerInput';
-import { Container, Meetup } from './styles';
+import { Container } from './styles';
 import { updateMeetupRequest } from '~/store/modules/meetup/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function NovoEditar({ match }) {
+export default function EditMeetup({ match }) {
   const [meetup, setMeetup] = useState({});
   const history = useHistory();
   const dispatch = useDispatch();
@@ -19,7 +19,13 @@ export default function NovoEditar({ match }) {
   useEffect(() => {
     async function loadMeetup() {
       const response = await api.get(`meetups/${match.params.id}`);
-      setMeetup(response.data);
+      const data = {
+        title: response.data.title,
+        description: response.data.description,
+        date: parseISO(response.data.date),
+        location: response.data.location,
+      };
+      setMeetup(data);
     }
 
     loadMeetup();
@@ -32,7 +38,7 @@ export default function NovoEditar({ match }) {
     history.push('/dashboard');
   }
   function handleSubmit(meetup) {
-    dispatch(updateMeetupRequest(meetup));
+    dispatch(updateMeetupRequest({ ...meetup, id: match.params.id }));
   }
 
   function handleProgress(progress, event) {}
@@ -52,7 +58,7 @@ export default function NovoEditar({ match }) {
   );
 }
 
-NovoEditar.propTypes = {
+EditMeetup.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.node,
