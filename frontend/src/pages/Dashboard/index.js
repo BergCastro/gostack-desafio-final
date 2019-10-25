@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { format, parseISO } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import pt from 'date-fns/locale/pt';
@@ -9,29 +10,44 @@ import {
   MdRoom,
 } from 'react-icons/md';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import api from '~/services/api';
 
 import { Container, Meetup } from './styles';
+import {
+  loadMeetups,
+  loadCurrentMeetup,
+  cleanCurrentMeetup,
+} from '~/store/modules/meetup/actions';
 
 export default function Dashboard() {
-  const [meetups, setMeetups] = useState([]);
+  // const [meetups, setMeetups] = useState([]);
+  const meetups = useSelector(state => state.meetup.meetups);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
-    async function loadMeetups() {
+    async function loadOrganizingMeetups() {
       const response = await api.get('organizing');
-      setMeetups(response.data);
+      dispatch(loadMeetups(response.data));
+      // setMeetups(response.data);
     }
 
-    loadMeetups();
+    loadOrganizingMeetups();
   }, []);
 
   function handleNovoMeetup() {
-    // setDate(addDays(date, 1));
+    dispatch(cleanCurrentMeetup());
+    history.push('/newMeetup');
   }
-
   function formatDate(date) {
     return format(parseISO(date), "d 'de' MMMM', às' HH'h' ", { locale: pt });
+  }
+
+  function handleEditMeetup(meetup) {
+    //meetup.date = formatDate(meetup.date);
+    dispatch(loadCurrentMeetup(meetup));
+    history.push('/detalhes');
   }
 
   return (
@@ -51,9 +67,9 @@ export default function Dashboard() {
             <div>
               <span>{formatDate(meetup.date)}</span>
 
-              <Link to={`/detalhes/${meetup.id}`}>
+              <button onClick={() => handleEditMeetup(meetup)}>
                 <MdKeyboardArrowRight size={23} color="#FFF" />
-              </Link>
+              </button>
             </div>
           </Meetup>
         ))}

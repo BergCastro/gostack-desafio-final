@@ -17,7 +17,9 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <img src={logo} alt="Meetapp" />
+          <Link to={'/dashboard'}>
+            <img src={logo} alt="Meetapp" />
+          </Link>
         </nav>
 
         <aside>

@@ -126,8 +126,12 @@ class MeetupController {
     meetup.merge(data)
 
     await meetup.save()
+    const meetupUpdated = await Meetup.query()
+      .where('id', params.id)
+      .with('file')
+      .first()
 
-    return meetup
+    return meetupUpdated
   }
 
   /**

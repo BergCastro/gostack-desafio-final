@@ -7,61 +7,60 @@ import { Link, useHistory } from 'react-router-dom';
 import { MdCreate, MdDeleteForever, MdEvent, MdRoom } from 'react-icons/md';
 import api from '~/services/api';
 import BannerInput from './BannerInput';
+import DatePicker from '~/components/ReactDatePicker';
 import { Container } from './styles';
 import { updateMeetupRequest } from '~/store/modules/meetup/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
 
-export default function EditMeetup({ match }) {
-  const [meetup, setMeetup] = useState({});
+export default function EditMeetup() {
+  const currentMeetup = useSelector(state => state.meetup.currentMeetup);
+
+  const meetup = {
+    ...currentMeetup,
+    date: parseISO(currentMeetup.date),
+  };
   const history = useHistory();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    async function loadMeetup() {
-      const response = await api.get(`meetups/${match.params.id}`);
-      const data = {
-        title: response.data.title,
-        description: response.data.description,
-        date: parseISO(response.data.date),
-        location: response.data.location,
-      };
-      setMeetup(data);
-    }
-
-    loadMeetup();
-  }, [match.params.id, meetup]);
-
-  function handleNovoMeetup() {
-    // setDate(addDays(date, 1));
-  }
-  function handleCancelar() {
-    history.push('/dashboard');
-  }
   function handleSubmit(meetup) {
-    dispatch(updateMeetupRequest({ ...meetup, id: match.params.id }));
+    dispatch(
+      updateMeetupRequest({
+        ...meetup,
+        id: currentMeetup.id,
+      })
+    );
   }
+
+  const schema = Yup.object().shape({
+    file_id: Yup.number(),
+    title: Yup.string().required('Um título é requerido'),
+    date: Yup.date().required('Uma data válida é requerida'),
+    location: Yup.string().required('Uma localização é requerida'),
+    description: Yup.string().required('Uma descrição é requerida'),
+  });
 
   function handleProgress(progress, event) {}
   return (
     <Container>
-      <Form initialData={meetup} onSubmit={handleSubmit}>
+      <Form
+        initialData={meetup}
+        onSubmit={handleSubmit}
+        schema={schema}
+        autocomplete="off"
+      >
         <BannerInput name="file_id" />
 
         <Input name="title" placeholder="Título do Meetup" />
         <Input multiline name="description" placeholder="Descricao completa" />
-        <Input name="date" placeholder="Data do meetup" />
+        {/* <Input name="date" placeholder="Data do meetup" /> */}
+        <DatePicker name="date" />
         <Input name="location" placeholder="Data do meetup" />
 
-        <button type="submit">Atualizar perfil</button>
+        <button id="btnUpdate" type="submit">
+          Atualizar perfil
+        </button>
       </Form>
     </Container>
   );
 }
-
-EditMeetup.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.node,
-    }).isRequired,
-  }).isRequired,
-};
