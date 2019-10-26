@@ -1,4 +1,4 @@
-package com.teste_react_native;
+package com.meetapp;
 
 import android.app.Application;
 import android.content.Context;

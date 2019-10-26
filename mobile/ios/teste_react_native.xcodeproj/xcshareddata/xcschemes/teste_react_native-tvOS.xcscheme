@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "teste_react_native-tvOS.app"
-               BlueprintName = "teste_react_native-tvOS"
-               ReferencedContainer = "container:teste_react_native.xcodeproj">
+               BuildableName = "meetapp-tvOS.app"
+               BlueprintName = "meetapp-tvOS"
+               ReferencedContainer = "container:meetapp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "teste_react_native-tvOSTests.xctest"
-               BlueprintName = "teste_react_native-tvOSTests"
-               ReferencedContainer = "container:teste_react_native.xcodeproj">
+               BuildableName = "meetapp-tvOSTests.xctest"
+               BlueprintName = "meetapp-tvOSTests"
+               ReferencedContainer = "container:meetapp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "teste_react_native-tvOSTests.xctest"
-               BlueprintName = "teste_react_native-tvOSTests"
-               ReferencedContainer = "container:teste_react_native.xcodeproj">
+               BuildableName = "meetapp-tvOSTests.xctest"
+               BlueprintName = "meetapp-tvOSTests"
+               ReferencedContainer = "container:meetapp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "teste_react_native-tvOS.app"
-            BlueprintName = "teste_react_native-tvOS"
-            ReferencedContainer = "container:teste_react_native.xcodeproj">
+            BuildableName = "meetapp-tvOS.app"
+            BlueprintName = "meetapp-tvOS"
+            ReferencedContainer = "container:meetapp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "teste_react_native-tvOS.app"
-            BlueprintName = "teste_react_native-tvOS"
-            ReferencedContainer = "container:teste_react_native.xcodeproj">
+            BuildableName = "meetapp-tvOS.app"
+            BlueprintName = "meetapp-tvOS"
+            ReferencedContainer = "container:meetapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "teste_react_native-tvOS.app"
-            BlueprintName = "teste_react_native-tvOS"
-            ReferencedContainer = "container:teste_react_native.xcodeproj">
+            BuildableName = "meetapp-tvOS.app"
+            BlueprintName = "meetapp-tvOS"
+            ReferencedContainer = "container:meetapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

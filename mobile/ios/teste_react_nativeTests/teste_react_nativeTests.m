@@ -14,11 +14,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface teste_react_nativeTests : XCTestCase
+@interface meetappTests : XCTestCase
 
 @end
 
-@implementation teste_react_nativeTests
+@implementation meetappTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {
@@ -59,7 +59,7 @@
       return NO;
     }];
   }
-  
+
 #ifdef DEBUG
   RCTSetLogFunction(RCTDefaultLogFunction);
 #endif
