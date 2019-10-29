@@ -20,19 +20,19 @@ class MeetupController {
    * @param {View} ctx.view
    */
   async index ({ request, response }) {
-    const { page, date } = request.get()
+    const { page, date, perPage } = request.get()
     let meetup
     if (date) {
       meetup = Meetup.query()
         .where('date', date || null)
         .with('user')
         .with('file')
-        .paginate(page, 10)
+        .paginate(page, perPage)
     } else {
       meetup = Meetup.query()
         .with('user')
         .with('file')
-        .paginate(page, 10)
+        .paginate(page, perPage)
     }
 
     return meetup
