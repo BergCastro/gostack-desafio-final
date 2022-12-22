@@ -31,7 +31,7 @@
     "adonis-kue": "^5.0.1",
     "date-fns": "^2.5.1",
     "date-fns-tz": "^1.0.8",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "pg": "^7.12.1"
   },
   "devDependencies": {
